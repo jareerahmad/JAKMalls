@@ -88,7 +88,7 @@ export default function AdminOrders() {
 
 
             const response = await fetch(
-                "http://localhost:5000/api/orders",
+                `${import.meta.env.VITE_API_URL}/api/orders`,
                 {
                     method: "GET",
 
@@ -225,7 +225,7 @@ export default function AdminOrders() {
 
 
             const response = await fetch(
-                `http://localhost:5000/api/orders/${orderId}/status`,
+                `${import.meta.env.VITE_API_URL}/api/orders/${orderId}/status`,
                 {
                     method: "PUT",
 
@@ -1070,7 +1070,7 @@ export default function AdminOrders() {
                                                                     {item.image ? (
 
                                                                         <img
-                                                                            src={`http://localhost:5000${item.image}`}
+                                                                            src={`${import.meta.env.VITE_API_URL}${item.image}`}
                                                                             alt={item.name}
                                                                             className="h-full w-full object-cover"
                                                                         />

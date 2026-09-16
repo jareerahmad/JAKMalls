@@ -18,7 +18,7 @@ export default function Home() {
         const fetchProducts = async () => {
             try {
                 const response = await fetch(
-                    "http://localhost:5000/api/products"
+                    `${import.meta.env.VITE_API_URL}/api/products`
                 );
 
                 if (!response.ok) {
@@ -179,7 +179,7 @@ export default function Home() {
                                     <img
                                         src={
                                             product.images?.[0]
-                                                ? `http://localhost:5000${product.images[0]}`
+                                                ? `${import.meta.env.VITE_API_URL}${product.images[0]}`
                                                 : image
                                         }
                                         alt={product.name}
@@ -274,7 +274,7 @@ export default function Home() {
                                     <img
                                         src={
                                             product.images?.[0]
-                                                ? `http://localhost:5000${product.images[0]}`
+                                                ? `${import.meta.env.VITE_API_URL}${product.images[0]}`
                                                 : image
                                         }
                                         alt={product.name}

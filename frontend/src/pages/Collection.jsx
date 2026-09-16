@@ -4,7 +4,7 @@ import { ChevronDown, Search, X } from "lucide-react";
 
 import image from "../assets/home back image.png";
 
-const API_URL = "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Collection() {
     // =========================================================

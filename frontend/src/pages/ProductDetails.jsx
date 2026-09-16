@@ -22,7 +22,7 @@ export default function ProductDetails() {
                 setError("");
 
                 const response = await fetch(
-                    `http://localhost:5000/api/products/${id}`
+                    `${import.meta.env.VITE_API_URL}/api/products/${id}`
                 );
 
                 const data = await response.json();
@@ -200,7 +200,7 @@ export default function ProductDetails() {
                                             }`}
                                     >
                                         <img
-                                            src={`http://localhost:5000${img}`}
+                                            src={`${import.meta.env.VITE_API_URL}${img}`}
                                             alt={`${product.name} ${index + 1}`}
                                             className="w-full h-full object-cover"
                                         />
@@ -218,7 +218,7 @@ export default function ProductDetails() {
 
                             {selectedImage ? (
                                 <img
-                                    src={`http://localhost:5000${selectedImage}`}
+                                    src={`${import.meta.env.VITE_API_URL}${selectedImage}`}
                                     alt={product.name}
                                     className="w-full aspect-square object-cover"
                                 />

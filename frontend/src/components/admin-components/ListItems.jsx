@@ -19,7 +19,7 @@ export default function ListItems() {
             setError("");
 
             const response = await fetch(
-                "http://localhost:5000/api/products"
+                `${import.meta.env.VITE_API_URL}/api/products`
             );
 
             if (!response.ok) {
@@ -94,7 +94,7 @@ export default function ListItems() {
 
         try {
             const response = await fetch(
-                `http://localhost:5000/api/products/${id}`,
+                `${import.meta.env.VITE_API_URL}/api/products/${id}`,
                 {
                     method: "DELETE",
                 }
@@ -233,7 +233,7 @@ export default function ListItems() {
 
                                 const imageUrl =
                                     product.images?.[0]
-                                        ? `http://localhost:5000${product.images[0]}`
+                                        ? `${import.meta.env.VITE_API_URL}${product.images[0]}`
                                         : null;
 
                                 return (
