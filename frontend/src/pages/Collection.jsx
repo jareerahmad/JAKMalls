@@ -49,32 +49,64 @@ export default function Collection() {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            try {
-                setLoading(true);
-                setError("");
+            const maxAttempts = 5;
 
-                const response = await fetch(
-                    `${API_URL}/api/products`
-                );
+            for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+                try {
+                    setLoading(true);
+                    setError("");
 
-                const data = await response.json();
+                    console.log(
+                        `Fetching products... attempt ${attempt}/${maxAttempts}`
+                    );
 
-                if (!response.ok) {
-                    throw new Error(
-                        data.message || "Failed to fetch products"
+                    const response = await fetch(
+                        `${API_URL}/api/products`
+                    );
+
+                    const responseText = await response.text();
+
+                    let data;
+
+                    try {
+                        data = JSON.parse(responseText);
+                    } catch {
+                        throw new Error(
+                            `Server returned an invalid response (${response.status})`
+                        );
+                    }
+
+                    if (!response.ok) {
+                        throw new Error(
+                            data.message || "Failed to fetch products"
+                        );
+                    }
+
+                    setProducts(data);
+                    setLoading(false);
+
+                    return;
+                } catch (error) {
+                    console.error(
+                        `Product fetch attempt ${attempt} failed:`,
+                        error
+                    );
+
+                    if (attempt === maxAttempts) {
+                        setError(
+                            "Unable to connect to the server. Please try again."
+                        );
+                        setLoading(false);
+                        return;
+                    }
+
+                    // Wait longer between each retry.
+                    const delay = attempt * 4000;
+
+                    await new Promise((resolve) =>
+                        setTimeout(resolve, delay)
                     );
                 }
-
-                setProducts(data);
-            } catch (error) {
-                console.error("Error fetching products:", error);
-
-                setError(
-                    error.message ||
-                    "Unable to load products."
-                );
-            } finally {
-                setLoading(false);
             }
         };
 
